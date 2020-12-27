@@ -1,0 +1,626 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Kyree">
+  <meta name="keywords" content="Kyree,KyreeMeng,kyree&#39;s blog">
+  <title>【js红宝书】第3章语言基础：变量、数据类型和操作符 - Kyree的个人博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"kyree.me","root":"/","version":"1.8.6","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":"a57ca69a76f2c92ef72cb340c50edd51","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Kyree</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('https://img9.doubanio.com/view/subject/s/public/s33703494.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="【js红宝书】第3章语言基础：变量、数据类型和操作符">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      Kyree
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-12-23 00:00" pubdate>
+        2020年12月23日 凌晨
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      27
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">【js红宝书】第3章语言基础：变量、数据类型和操作符</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2020年12月25日 晚上
+                
+              </p>
+            
+            <div class="markdown-body">
+              <h1 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h1><h2 id="区分大小写"><a href="#区分大小写" class="headerlink" title="区分大小写"></a>区分大小写</h2><p>ECMAScript中<strong>一切都区分大小写</strong>。无论是变量、函数名还是操作符，都区分大小写。变量test和变量Test是两个完全不同的变量。typeof不能作为函数名，因为它是一个关键字。但是Typeof 是一个完全有效的函数名。</p>
+<h2 id="标识符"><a href="#标识符" class="headerlink" title="标识符"></a>标识符</h2><p>标识符，就是变量、函数、属性和函数参数的名称。标识符可以由一个或多个字符组成。</p>
+<ul>
+<li>第一个字符必须是字母、下划线_ 或美元符号$</li>
+<li>剩下的其它字符可以是字母、下划线、美元符号或数字。<br>按照惯例，ECMAScript标识符可以使用驼峰大小写形式，即第一个单词的首字母小写，后面每个单词的首字母大写。<br>如：firstSecond  myCar  doSomethingImportant<h1 id="关键字和保留字"><a href="#关键字和保留字" class="headerlink" title="关键字和保留字"></a>关键字和保留字</h1>ECMA-262 描述了一组保留的关键字，这些关键字有特殊用途。按照规定，保留的关键字不能用作标识符或属性名：</li>
+</ul>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs livescript"><span class="hljs-keyword">break</span>       <span class="hljs-keyword">do</span><br><span class="hljs-keyword">case</span>        <span class="hljs-keyword">else</span><br><span class="hljs-keyword">catch</span>       <span class="hljs-keyword">export</span><br><span class="hljs-class"><span class="hljs-keyword">class</span>       <span class="hljs-keyword">extends</span></span><br><span class="hljs-keyword">const</span>       <span class="hljs-keyword">finally</span><br><span class="hljs-keyword">continue</span>    <span class="hljs-keyword">for</span><br><span class="hljs-keyword">debugger</span>    <span class="hljs-keyword">function</span>    <br><span class="hljs-keyword">default</span>     <span class="hljs-keyword">if</span>          <br><span class="hljs-keyword">delete</span>      <span class="hljs-keyword">import</span>      <br><span class="hljs-keyword">in</span>          <span class="hljs-keyword">typeof</span><br><span class="hljs-keyword">instanceof</span>   <span class="hljs-keyword">var</span><br><span class="hljs-keyword">new</span>           <span class="hljs-literal">void</span><br><span class="hljs-keyword">return</span>        <span class="hljs-keyword">while</span><br><span class="hljs-built_in">super</span>         <span class="hljs-keyword">with</span><br><span class="hljs-keyword">switch</span>        <span class="hljs-keyword">yield</span><br><span class="hljs-built_in">this</span>          <span class="hljs-keyword">throw</span><br><span class="hljs-keyword">try</span><br></code></pre></td></tr></table></figure>
+<p>规范中也描述了一组未来的保留字，同样不能用作标识符或属性名，虽然保留字在语言中没有特定用途，，但它们是保留给将来做关键字用的。<br>始终保留：</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crystal"><span class="hljs-class"><span class="hljs-keyword">enum</span></span><br></code></pre></td></tr></table></figure>
+<p>严格模式下保留：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs gradle"><span class="hljs-keyword">implements</span>  <span class="hljs-keyword">package</span>     <span class="hljs-keyword">public</span><br><span class="hljs-keyword">interface</span>   <span class="hljs-keyword">protected</span>   <span class="hljs-keyword">static</span><br>let         <span class="hljs-keyword">private</span><br></code></pre></td></tr></table></figure>
+<p>模块代码中保留：</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-keyword">await</span><br></code></pre></td></tr></table></figure>
+<p>最好不要使用关键字和保留字作为标识符和属性名，以确保兼容过去和未来的ECMAScript版本。</p>
+<h1 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h1><p>ECMAScript变量是<strong>松散类型</strong>的，意思是比那辆可以用于保存任何类型的数据。每个变量只不过是一个用于保存任意值的命名占位符。<br>有3个关键字可以声明变量：var、const、和let 。<br>var在ECMAScript的所有版本中都可以使用。<br>const和let 只能在ECMAScript6及更晚的版本中使用。</p>
+<h2 id="var"><a href="#var" class="headerlink" title="var"></a>var</h2><p>可以使用var操作符定义变量</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> message;<br></code></pre></td></tr></table></figure>
+<p>上述代码定义了一个名为message的变量，可以用它保存任何类型的值。（不初始化的情况下，变量的值为undefined）。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> message = <span class="hljs-string">&#x27;hi&#x27;</span>;<br></code></pre></td></tr></table></figure>
+<p>现在message被定义为一个保存字符串值hi的变量。像这样初始化变量不会将它标识为字符串类型，只是一个简单的赋值而已。后面可以改变保存的值，也可以改变值的类型。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> message = <span class="hljs-string">&#x27;hi&#x27;</span> <span class="hljs-comment">//值类型为字符串</span><br>message = <span class="hljs-number">100</span> ;<span class="hljs-comment">//现在的值类型变为了number，不推荐这种写法</span><br></code></pre></td></tr></table></figure>
+<h3 id="var声明作用域"><a href="#var声明作用域" class="headerlink" title="var声明作用域"></a>var声明作用域</h3><p>使用var操作符定义的变量会成为包含它的函数的局部变量。使用var在一个函数内部定义一个变量，在函数退出时，该变量就会被销毁。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test1</span>(<span class="hljs-params"></span>)</span>&#123;<br>            <span class="hljs-keyword">var</span> a = <span class="hljs-string">&#x27;hello&#x27;</span> <span class="hljs-comment">//局部变量</span><br>        &#125;<br>        test1();<br> <span class="hljs-built_in">console</span>.log(a)  <span class="hljs-comment">// 报错：a is not defined</span><br></code></pre></td></tr></table></figure>
+<p>当去掉var操作符后，这个变量就变成了全局变量，只要调用一次函数，就会定义这个变量，并且可以再函数外部访问到。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test2</span>(<span class="hljs-params"></span>)</span>&#123;<br>            b = <span class="hljs-string">&#x27;world&#x27;</span> <span class="hljs-comment">//全局变量</span><br>        &#125;<br>        test2();<br><span class="hljs-built_in">console</span>.log(b)  <span class="hljs-comment">// world</span><br></code></pre></td></tr></table></figure>
+<p>虽然可以通过这种方式定义全局变量，但不推荐这么做。</p>
+<p>如果要定义多个变量，可以再每一条语句中用逗号分隔每个变量。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> name=<span class="hljs-string">&quot;Mike&quot;</span>,age = <span class="hljs-string">&#x27;18&#x27;</span>,grade=<span class="hljs-string">&quot;12&quot;</span> <span class="hljs-comment">//同时声明多个变量</span><br><span class="hljs-built_in">console</span>.log(<span class="hljs-string">`名字叫<span class="hljs-subst">$&#123;name&#125;</span>今年<span class="hljs-subst">$&#123;age&#125;</span>岁了，在读<span class="hljs-subst">$&#123;grade&#125;</span>年级`</span>)<br></code></pre></td></tr></table></figure>
+<h3 id="var变量提升"><a href="#var变量提升" class="headerlink" title="var变量提升"></a>var变量提升</h3><p>使用var声明的变量会自动提升到函数作用域的顶部。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-built_in">console</span>.log(c)  <span class="hljs-comment">//undefined</span><br> <span class="hljs-keyword">var</span> c = <span class="hljs-string">&#x27;height&#x27;</span><br></code></pre></td></tr></table></figure>
+<p>ECMAScript运行时把它看成等价于下面的代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> c;<br><span class="hljs-built_in">console</span>.log(c)  <span class="hljs-comment">//undefined</span><br>c = <span class="hljs-string">&#x27;height&#x27;</span><br></code></pre></td></tr></table></figure>
+<p>这就是var的变量提升：把所有变量声明都放到函数作用域的顶部。</p>
+<h2 id="let"><a href="#let" class="headerlink" title="let"></a>let</h2><p>let和var的作用差不多。但是，<strong>let声明的范围是块作用域，var声明的范围是函数作用域</strong>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">if</span>(<span class="hljs-literal">true</span>)&#123;<br>  <span class="hljs-keyword">var</span> weight = <span class="hljs-string">&#x27;50kg&#x27;</span><br>&#125;<br><span class="hljs-built_in">console</span>.log(weight) <span class="hljs-comment">//正确输出</span><br><br><span class="hljs-keyword">if</span>(<span class="hljs-literal">true</span>)&#123;<br>  <span class="hljs-keyword">let</span> weight2 = <span class="hljs-string">&#x27;60kg&#x27;</span><br>&#125;<br><span class="hljs-comment">// console.log(weight2)  //报错</span><br></code></pre></td></tr></table></figure>
+<p>weight2变量之所以不能在if块外部被引用，是因为它的作用域仅限于该块内部。块作用域是函数作用域的子集，因此适用于var的作用域限制同样适用于let。<br>let也不允许在同一个块作用域中出现冗余声明，这样也会报错：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> age;<br><span class="hljs-keyword">let</span> age; <span class="hljs-comment">//报错</span><br></code></pre></td></tr></table></figure>
+<p>JavaScript引擎会记住变量声明的标识符及其所在的块作用域，因此在不同块级作用域中嵌套使用相同标识符不会报错。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> myAge = <span class="hljs-number">30</span>;<br> <span class="hljs-built_in">console</span>.log(myAge);    <span class="hljs-comment">// 30</span><br> <span class="hljs-keyword">if</span> (<span class="hljs-literal">true</span>) &#123;<br> <span class="hljs-keyword">let</span> myAge = <span class="hljs-number">26</span>;<br>   <span class="hljs-built_in">console</span>.log(myAge);  <span class="hljs-comment">// 26</span><br> &#125;<br> <span class="hljs-built_in">console</span>.log(myAge); <span class="hljs-comment">// 30</span><br></code></pre></td></tr></table></figure>
+<p>声明冗余报错不会因为混用var和let受影响。这两个关键字的区别只是指出变量在相关的作用域如何存在而已。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> name;<br><span class="hljs-keyword">let</span> name; <span class="hljs-comment">// SyntaxError</span><br><span class="hljs-keyword">let</span> age;<br><span class="hljs-keyword">var</span> age; <span class="hljs-comment">// SyntaxError</span><br></code></pre></td></tr></table></figure>
+<h3 id="暂时性死区"><a href="#暂时性死区" class="headerlink" title="暂时性死区"></a>暂时性死区</h3><p>let声明的变量不会再作用域中被提升。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// age 不会被提升</span><br><span class="hljs-built_in">console</span>.log(age); <span class="hljs-comment">// ReferenceError:age 没有定义 </span><br><span class="hljs-keyword">let</span> age = <span class="hljs-number">26</span>;<br></code></pre></td></tr></table></figure>
+<p>在解析代码的时候JavaScript引擎也会注意出现在块后面的let声明，只不过在此之前都不能用任何当时去引用未声明的变量。在let声明之前的执行瞬间，被称为“<strong>暂时性死区”</strong>，在此阶段，引用任何后面才声明的变量都会抛出ReferenceError。</p>
+<h3 id="非全局声明"><a href="#非全局声明" class="headerlink" title="非全局声明"></a>非全局声明</h3><p>使用let在全局作用域中声明的变量不会称为window对象的属性。而var声明的变量则会这样。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> name = <span class="hljs-string">&#x27;Matt&#x27;</span>;<br><span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">window</span>.name); <span class="hljs-comment">// &#x27;Matt&#x27;</span><br><span class="hljs-keyword">let</span> age = <span class="hljs-number">26</span>;<br><span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">window</span>.age);  <span class="hljs-comment">// undefined</span><br></code></pre></td></tr></table></figure>
+<p>此时，let声明仍然是在全局作用域发生的，相应变量会在页面的声明周期内存续。所以为了避免SyntaxError，必须确保页面不会重复声明同一个变量。</p>
+<h3 id="for中的let声明"><a href="#for中的let声明" class="headerlink" title="for中的let声明"></a>for中的let声明</h3><p>在let出现以前，for循环定义的迭代变量会渗透到循环体外部：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>; ++i) &#123; <br><span class="hljs-comment">// 循环逻辑</span><br>&#125;<br><span class="hljs-built_in">console</span>.log(i); <span class="hljs-comment">// 5</span><br></code></pre></td></tr></table></figure>
+<p>改用let之后，这个问题就消失了，因为迭代变量的作用域仅限于for循环快内部：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>; ++i) &#123; <br><span class="hljs-comment">// 循环逻辑</span><br>&#125;<br><span class="hljs-built_in">console</span>.log(i); <span class="hljs-comment">// ReferenceError: i 没有定义</span><br></code></pre></td></tr></table></figure>
+<p>在使用var的时候，最常见的问题就是对迭代变量的奇特声明和修改：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js">  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>; ++i) &#123;<br>        <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">console</span>.log(i), <span class="hljs-number">0</span>)<br>&#125;<br><span class="hljs-comment">// 你可能以为会输出0、1、2、3、4 // 实际上会输出5、5、5、5、5</span><br></code></pre></td></tr></table></figure>
+<p>这是因为在退出循环时，迭代变量保存的是导致循环退出的值：5，在之后执行超时逻辑时，所有的i都是同一个变量，因而输出的都是同一个最终值。<br>使用let声明迭代变量时，JavaScript引擎在后台回味每个迭代循环声明一个新的迭代变量。每个setTimeout引用的都是不同的变量实例。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>; ++i) &#123;<br>        <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">console</span>.log(i), <span class="hljs-number">0</span>)<br>&#125;<br><span class="hljs-comment">// 会输出0、1、2、3、4</span><br></code></pre></td></tr></table></figure>
+<p>这种每次迭代声明一个独立变量实例的行为适用于所有风格的for循环，包括for-in和for-of循环。</p>
+<h2 id="const"><a href="#const" class="headerlink" title="const"></a>const</h2><p>const和let基本类似，但是用const声明的变量必须同时初始化变量，且这个变量的值<strong>不可修改</strong>，也<strong>不可重复声明</strong>，<strong>作用域也是块级作用域</strong>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> level = <span class="hljs-number">1</span><br>level = <span class="hljs-number">2</span>  <span class="hljs-comment">// 报错,不可修改</span><br><span class="hljs-keyword">const</span> level = <span class="hljs-number">3</span>  <span class="hljs-comment">//报错，不可重复声明</span><br><br><span class="hljs-keyword">const</span> lastName = <span class="hljs-string">&#x27;kyree&#x27;</span><br><span class="hljs-keyword">if</span>(<span class="hljs-literal">true</span>)  &#123;<br> <span class="hljs-keyword">const</span> lastName = <span class="hljs-string">&#x27;jack&#x27;</span> <span class="hljs-comment">//块级作用域</span><br>&#125;<br><span class="hljs-built_in">console</span>.log(lastName)  <span class="hljs-comment">//kyree</span><br></code></pre></td></tr></table></figure>
+<p>const声明的限制只适用于它只想的变量的引用。<br>如果const变量引用的是一个对象，那么修改这个对象里面的属性是可以的。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> person = <span class="hljs-string">&#x27;kyree&#x27;</span><br> person.weight = <span class="hljs-string">&#x27;62kg&#x27;</span><br></code></pre></td></tr></table></figure>
+<h2 id="声明风格"><a href="#声明风格" class="headerlink" title="声明风格"></a>声明风格</h2><h3 id="不使用var"><a href="#不使用var" class="headerlink" title="不使用var"></a>不使用var</h3><p>使用var声明会导致很多问题，自己编写的代码中只使用let和const声明变量有助于提升代码的质量，因为变量有了明确的作用域、声明位置和不变的值。</p>
+<h3 id="优先使用const"><a href="#优先使用const" class="headerlink" title="优先使用const"></a>优先使用const</h3><p>const声明的变量不会改变，也可以避免不合法的赋值操作，这样可以在开发的时候预期范围内保证有些变量的值永远不会变。</p>
+<h1 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h1><h2 id="typeof操作符"><a href="#typeof操作符" class="headerlink" title="typeof操作符"></a>typeof操作符</h2><p>因为ECMAScript的类型是松散的，所以需要一种手段来确定任意变量的数据类型。typeof就是来确定任意变量的数据类型，它返回的永远是一个string类型的数据。</p>
+<ul>
+<li>“undefined”表示值未定义;</li>
+<li>“boolean”表示值为布尔值;</li>
+<li>“string”表示值为字符串;</li>
+<li>“number”表示值为数值;</li>
+<li>“object”表示值为对象(而不是函数)或 null;</li>
+<li>“function”表示值为函数;</li>
+<li>“symbol”表示值为符号。</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">typeof</span>(<span class="hljs-string">&#x27;hello&#x27;</span>)) <span class="hljs-comment">// string</span><br><span class="hljs-keyword">let</span> newFn = <span class="hljs-built_in">Function</span>()<br><span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">typeof</span>(newFn))  <span class="hljs-comment">//function</span><br><span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">typeof</span>(<span class="hljs-number">200</span>))  <span class="hljs-comment">//number</span><br><span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">typeof</span>(<span class="hljs-literal">false</span>))  <span class="hljs-comment">//boolean</span><br><span class="hljs-keyword">let</span> sym = <span class="hljs-built_in">Symbol</span>()<br><span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">typeof</span>(sym))  <span class="hljs-comment">//symbol</span><br><span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">typeof</span>(<span class="hljs-literal">undefined</span>)) <span class="hljs-comment">//undefined</span><br><span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">typeof</span>(<span class="hljs-literal">null</span>))  <span class="hljs-comment">//object</span><br><span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">typeof</span>(&#123;<span class="hljs-attr">name</span>:<span class="hljs-string">&#x27;kyree&#x27;</span>,<span class="hljs-attr">age</span>:<span class="hljs-number">18</span>&#125;))  <span class="hljs-comment">//object</span><br></code></pre></td></tr></table></figure>
+
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/JavaScript/">JavaScript</a>
+                    
+                      <a class="hover-with-bg" href="/tags/js%E7%BA%A2%E5%AE%9D%E4%B9%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">js红宝书学习笔记</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/12/23/JsNote01/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【js红宝书】第2章：html中的JavaScript</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/12/21/202012/">
+                        <span class="hidden-mobile">记录我焦虑迷茫的12月</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "2RjrEKjFQwRTQV2tE7KPVTNq-gzGzoHsz",
+          app_key: "sOvdogQ0KWAIm1HBJrMfoMK8",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        苏ICP备19075706
+      </a>
+    </span>
+    
+  </div>
+
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?a57ca69a76f2c92ef72cb340c50edd51";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>
